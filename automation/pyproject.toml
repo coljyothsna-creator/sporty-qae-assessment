@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sporty-assessment-automation"
+version = "0.1.0"
+description = "Small Selenium and requests framework for the Sporty assessment"
+requires-python = ">=3.11"
+dependencies = [
+    "pytest>=8.3,<9",
+    "requests>=2.32.3,<3",
+    "selenium>=4.26,<5",
+]
+
+[project.optional-dependencies]
+dev = ["ruff>=0.9,<1"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--strict-config --strict-markers"
+log_cli = true
+log_cli_level = "INFO"
+log_cli_format = "%(asctime)s %(levelname)s %(name)s: %(message)s"
+log_cli_date_format = "%H:%M:%S"
+markers = [
+    "unit: local framework checks; no browser or application access",
+    "ui: application tests using desktop Chrome",
+    "api: application tests using the HTTP API",
+    "smoke: Chrome navigation check only; no betting or balance reset",
+]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
